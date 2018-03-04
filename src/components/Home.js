@@ -1,9 +1,22 @@
-import React from 'react'
+import React, {Component} from 'react'
+import HomeService from './Home/HomeService'
 
-const Home = () => (
-    <div>
-      <h1>Welcome to the Tornadoes Website!</h1>
-    </div>
-);
+class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+        <div>
+          <h1>{HomeService.getTitle()}</h1>
+          <div className="media-body">
+            {HomeService.getMaincontent()}
+          </div>
+        </div>
+    );
+  }
+}
+
 
 export default Home

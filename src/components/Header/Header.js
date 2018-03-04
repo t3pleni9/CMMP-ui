@@ -2,6 +2,9 @@ import React from 'react'
 import {Link, Route, RouteHandler} from 'react-router';
 import {MenuItem, Nav, NavDropdown, NavItem, Navbar} from 'react-bootstrap';
 import {LinkContainer} from "react-router-bootstrap";
+import { PortalWithState } from 'react-portal';
+import SignIn from '../SignIn'
+import SignUp from '../SignUp'
 
 
 
@@ -19,7 +22,7 @@ const Header = () => (
             <NavItem eventKey={1}>Home</NavItem>
           </LinkContainer>
           <LinkContainer to="/some">
-            <NavItem eventKey={1}>Some</NavItem>
+            <NavItem eventKey={2}>Some</NavItem>
           </LinkContainer>
           <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
             <MenuItem eventKey={3.1}>Action</MenuItem>
@@ -30,12 +33,28 @@ const Header = () => (
           </NavDropdown>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={1} href="#">
-            Link Right
-          </NavItem>
-          <NavItem eventKey={2} href="#">
-            Link Right
-          </NavItem>
+          <PortalWithState closeOnOutsideClick closeOnEsc>
+            {({openPortal, closePortal, isOpen, portal}) => [
+              <NavItem eventKey={4} href="#" onClick={openPortal} key="somerandomtext">
+                Sign in
+              </NavItem>,
+              portal(
+                  <SignIn onCancel={closePortal}/>
+              )
+            ]}
+
+          </PortalWithState>
+          <PortalWithState closeOnOutsideClick closeOnEsc>
+            {({openPortal, closePortal, isOpen, portal}) => [
+              <NavItem eventKey={5} href="#" onClick={openPortal} key="somerandomtext">
+                Sign Up
+              </NavItem>,
+              portal(
+                  <SignUp onCancel={closePortal}/>
+              )
+            ]}
+
+          </PortalWithState>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
